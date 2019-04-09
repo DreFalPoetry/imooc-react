@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {createStore} from 'redux';
+import './es6'
 
 class App extends Component {
   render() {
