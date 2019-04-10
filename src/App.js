@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {addGun,removeGun,addGunAsync} from './index.redux'
-
+  
 // const mapStatetoProps = (state) => {
 //   return {num:state}
 // }
