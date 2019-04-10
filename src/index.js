@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import App from './App';
 import {counter} from './index.redux';
 
+
 const reduxDevTools =  window.devToolsExtension? window.devToolsExtension():f=>f;
 
 const store = createStore(counter,compose(
