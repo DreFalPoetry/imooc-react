@@ -18,6 +18,7 @@ class App extends React.Component{
   render(){
     const num = this.props.num
     return (
+      
        <div>  
         <h1>现在有机枪{num}把</h1>
         <button onClick={this.props.addGun}>申请武器</button>
