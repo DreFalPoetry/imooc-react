@@ -12,31 +12,21 @@ import {
   Switch
 } from 'react-router-dom'
 
-import App from './App';
-import {counter} from './index.redux';
+import reducer from './reducer' 
+
+import Auth from './Auch'
+import Dashboard from './Dashboard'
+
 
 
 const reduxDevTools =  window.devToolsExtension? window.devToolsExtension():f=>f;
 
-const store = createStore(counter,compose(
+const store = createStore(reducer,compose(
   applyMiddleware(thunk),
   reduxDevTools
 ) );
 
-class Test extends React.Component{
-  render(){
-    return <h2>Test</h2>
-  }
-}
-
-function Erying(){
-  return <h2>二营</h2>
-}
-
-function Qibinglian(){
-  return <h2>骑兵连</h2>
-}
-
+console.log(store.getState())
 //设计登陆页面【没有登陆信息 统一跳转到login】
 //页面 【导航+显示+注销】
 
@@ -45,28 +35,10 @@ function Qibinglian(){
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          {/**只渲染命中的第一个Route */}
-          <Route path='/' exact component={App}></Route>
-          <Route path='/erying' component={Erying}></Route>
-          <Route path='/qibinglian' component={Qibinglian}></Route>
-          <Route path='/:location' component={Test}></Route>
+          <Route path='/login' exact component={Auth}></Route>
+          <Route path='/dashboard' component={Dashboard}></Route>
+          <Redirect to="/dashboard"></Redirect>
         </Switch>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">一营</Link>
-            </li>
-            <li>
-              <Link to="/erying" >二营</Link>
-            </li>
-            <li>
-              <Link to="/qibinglian" >骑兵连</Link>
-            </li>
-          </ul>
-          
-          {/* <Redirect to='/qibinglian'></Redirect> */}
-         
-        </div>
       </BrowserRouter>
     </Provider>
   ,document.getElementById('root'))
