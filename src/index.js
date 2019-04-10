@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 import {
   BrowserRouter,
   Route,
-  Link,
   Redirect,
   Switch
 } from 'react-router-dom'
@@ -19,14 +18,14 @@ import Dashboard from './Dashboard'
 
 
 
-const reduxDevTools =  window.devToolsExtension? window.devToolsExtension():f=>f;
+// const reduxDevTools =  window.devToolsExtension? window.devToolsExtension():f=>f;
 
 const store = createStore(reducer,compose(
   applyMiddleware(thunk),
-  reduxDevTools
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ) );
 
-console.log(store.getState())
+// console.log(store.getState())
 //设计登陆页面【没有登陆信息 统一跳转到login】
 //页面 【导航+显示+注销】
 

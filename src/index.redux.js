@@ -3,7 +3,6 @@ const RE = 'jian'
 
 //reducer
 export function counter(state=0,action){
-  console.log(state)
   switch(action.type){
     case 'jia':
       return state + 1

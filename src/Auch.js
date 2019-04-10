@@ -6,9 +6,6 @@ import {Redirect } from 'react-router-dom'
 //
 @connect(state=>state.auth,{login})
 class Auth extends React.Component{
-  constructor(props){
-    super(props)
-  }
   render(){
     return (
       <div>
