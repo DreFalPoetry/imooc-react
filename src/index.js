@@ -15,8 +15,7 @@ import reducer from './reducer'
 
 import Auth from './Auch'
 import Dashboard from './Dashboard'
-
-
+import './config';
 
 // const reduxDevTools =  window.devToolsExtension? window.devToolsExtension():f=>f;
 
