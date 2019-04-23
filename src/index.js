@@ -15,6 +15,9 @@ import Register from './container/register/register'
 import AuthRoute from './component/AuthRoute/index'
 import './config';
 
+import BossInfo from './container/bossinfo/index'
+import GeniusInfo from './container/geniusinfo/index'
+
 
 
 const store = createStore(reducer,compose(
@@ -30,7 +33,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthRoute></AuthRoute>
+      <Route path='/bossinfo' component={BossInfo}></Route>
       <Route path='/boss' component={Boss}></Route>
+      <Route path='/geniusinfo' component={GeniusInfo}></Route>
       <Route path='/login' component={Login}></Route>
       <Route path='/register' component={Register}></Route>
     </BrowserRouter>
