@@ -7,6 +7,8 @@ const AUTH_SUCCESS = 'AUTH_SUCCESS';
 
 const LOAD_DATA = 'LOAD_DATA';
 
+const LOG_OUT = 'LOG_OUT'
+
 const initState = {
   redirectTo:'',
   msg:'',
@@ -23,6 +25,9 @@ export function user(state = initState,action){
       return {...state,isAuth:false,msg:action.msg}
     case LOAD_DATA:
       return {...state,msg:'',...action.payload}
+    case LOG_OUT:{
+      return {...initState,redirectTo:'/login'}
+    }
     default:
       return state
   }
@@ -41,6 +46,9 @@ export function loadData(userInfo){
   return {type:LOAD_DATA,payload:userInfo}
 }
 
+export function logoutSubmit(){
+  return {type:LOG_OUT}
+}
 
 
 export function update(data){
