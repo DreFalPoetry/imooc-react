@@ -19,8 +19,14 @@ class Msg extends React.Component{
       msgGroup[v.chatid] = msgGroup[v.chatid] || []
       msgGroup[v.chatid].push(v)
     })
-    const chatList = Object.values(msgGroup);
-    
+    const chatList = Object.values(msgGroup).sort((a,b)=>{
+      const a_last = this.getLast(a).create_time
+      const b_last = this.getLast(b).create_time
+      return b_last - a_last
+    });
+    // console.log([1,2,54,3,6].sort((a,b)=>{
+    //   return b-a
+    // }))
     // console.log(Object.values({name:'imooc',age:10}))
     //按照聊天用户分组 根据 chatid
     return (
@@ -41,6 +47,10 @@ class Msg extends React.Component{
                 <List.Item
                   extra={<Badge text={unreadNum}></Badge>}
                   thumb={require(`../../component/img/${avatar}.png`)}
+                  arrow='horizontal'
+                  onClick={()=> {
+                    this.props.history.push(`/chat/${targetId}`)
+                  }}
                 >
                   {lastItem.content}
                   <List.Item.Brief>
