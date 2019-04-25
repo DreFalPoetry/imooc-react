@@ -1,9 +1,9 @@
 import React from 'react';
-import { List ,InputItem, NavBar } from 'antd-mobile'
+import { List ,InputItem, NavBar,Icon } from 'antd-mobile'
 import io from 'socket.io-client'
 import {connect} from 'react-redux';
 import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux'
-
+import {getChatId} from '../../util'
 
 @connect(state=>state,
   {getMsgList,sendMsg,recvMsg}
@@ -17,8 +17,10 @@ class Chat extends React.Component{
     }
   }
   componentDidMount(){
-   this.props.getMsgList()
-   this.props.recvMsg()
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList()
+      this.props.recvMsg()
+    }
   }
 
   handleSubmit(){
@@ -36,18 +38,32 @@ class Chat extends React.Component{
   }
 
   render(){
-    const user = this.props.match.params.user;
+    const userId = this.props.match.params.user;
     const Item = List.Item
+    const users = this.props.chat.users;
+    if(!users[userId]){
+      return null
+    }
+    const chatid = getChatId(userId,this.props.user._id)
+    const chatmsg = this.props.chat.chatmsg.filter(v => v.chatid == chatid)
     return (
       <div id="chat-page">
-        <NavBar mode='dark'>
-        {this.props.match.params.user}
+        <NavBar 
+          mode='dark'
+          icon={<Icon type="left" />}
+          onLeftClick={()=>{
+            this.props.history.goBack()
+          }}
+        >
+        {users[userId].name}
         </NavBar>
 
-        {this.props.chat.chatmsg.map((v,index)=>{
-          return v.from == user ? (
+        {chatmsg.map((v,index)=>{
+          const avatar = require(`../img/${users[v.from].avatar}.png`)
+          return v.from == userId ? (
             <List key={index}>
               <Item
+              thumb={avatar}
               >{v.content}</Item>
             </List>
             // <p key={index}>对方发来的 : {v.content}</p>
@@ -55,7 +71,7 @@ class Chat extends React.Component{
             <List key={index}>
               <Item 
                 className='chat-me'
-                extra={'avatar'}
+                extra={<img src={avatar}></img>}
               >{v.content}</Item>
             </List>
             // <p key={index}>我发的：{v.content}</p>
