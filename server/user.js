@@ -3,6 +3,7 @@ const utils = require('utility');
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const _filter = {'pwd':0,'__v':0}
 
 Router.get('/list',function(req,res){
@@ -11,6 +12,16 @@ Router.get('/list',function(req,res){
   User.find({type},function(err,doc){
     return res.json({code:0,data:doc})
   })
+})
+
+Router.get('/getmsglist',function(req,res){
+  const user = req.cookies.user
+  Chat.find({},function(err,doc){
+    if(!err){
+      return res.json({code:0,msgs:doc})
+    }
+  })
+  // Chat.find('$or':[{from:user,to:user}])
 })
 
 Router.post('/update',function(req,res){
